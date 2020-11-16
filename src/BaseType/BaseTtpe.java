@@ -2,10 +2,13 @@ package BaseType;
 
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 
+import java.util.Arrays;
+
 public class BaseTtpe {
     public static void main(String[] args){
         //byteType();
         //shortType();
+        intType();
 
     }
 
@@ -74,8 +77,54 @@ public class BaseTtpe {
         Integer integer = new Integer(10);
         Integer integer1 = new Integer("10");
 
+        //System.setProperty("kkk","1111");
+        //根据指定名字返回系统属性
+        //目前来看，此方法只适合值为整数的属性
+        //System.out.println(getInteger("kkk",null));返回Integer类型1111
+        //当不存在此属性，则返回null
+        //System.out.println(Integer.getInteger("java.home"));
+        //当属性值不是整数，则返回null
+        //System.out.println(System.getProperty("java.home"));
+        Integer a = new Integer(1);
+        try{
+           Integer.decode("asd");
+            a = 2;
+        }catch (NumberFormatException e){}
+        // 2<<3;   16
+        // 2<<2;   8
+        // 2<<1;   4
+        // 2<<0;   2
+
+        // 3<<0;   3
+        // 3<<1;   6
+        // 3<<2;   12
+        // 3<<3;   24
+        // a<<b  相当于a*2b （b==0时则视为不进行右移运算，还是原来的值）
+        //System.out.println(3<<1);
+        // 2>>1;
+        System.out.println(2>>3);
+
+        // System.out.println(a);
 
 
+
+
+
+    }
+
+    public static Integer getInteger(String nm, Integer val) {
+        String v = null;
+        try {
+            v = System.getProperty(nm);
+        } catch (IllegalArgumentException | NullPointerException e) {
+        }
+        if (v != null) {
+            try {
+                return Integer.decode(v);
+            } catch (NumberFormatException e) {//decode处理非整数字符串时直接抛出异常，return不执行，执行catch处理，然后继续往下执行
+            }
+        }
+        return val;
     }
 
 }
